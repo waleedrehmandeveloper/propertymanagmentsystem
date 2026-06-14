@@ -1,8 +1,9 @@
 <?php
-  session_start();
-  require_once("../config/db.php");
-  require_once("../auth/auth.php");
-  adminlogin();
+session_start();
+require_once("../config/db.php");
+require_once("../auth/auth.php");
+chekLogin();
+// sellerStatusChecked();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,15 +50,15 @@
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
               <?php
-                $query = "SELECT COUNT(DISTINCT id) AS total_projects FROM plots";
+              $query = "SELECT COUNT(DISTINCT id) AS total_projects FROM plots";
 
-                $stmt = $conn->prepare($query);
-                $stmt->execute();
+              $stmt = $conn->prepare($query);
+              $stmt->execute();
 
-                $result = $stmt->get_result();
-                $row = $result->fetch_assoc();
+              $result = $stmt->get_result();
+              $row = $result->fetch_assoc();
 
-                $total_projects = $row['total_projects'] ?? 0;
+              $total_projects = $row['total_projects'] ?? 0;
               ?>
               <div class="card h-100">
                 <div class="card-body">
@@ -85,15 +86,15 @@
             <!-- Earnings (Annual) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
               <?php
-                $query = "SELECT COUNT(DISTINCT id) AS total_clients FROM clients";
+              $query = "SELECT COUNT(DISTINCT id) AS total_clients FROM clients";
 
-                $stmt = $conn->prepare($query);
-                $stmt->execute();
+              $stmt = $conn->prepare($query);
+              $stmt->execute();
 
-                $result = $stmt->get_result();
-                $row = $result->fetch_assoc();
+              $result = $stmt->get_result();
+              $row = $result->fetch_assoc();
 
-                $total_clients = $row['total_clients'] ?? 0;
+              $total_clients = $row['total_clients'] ?? 0;
               ?>
               <div class="card h-100">
                 <div class="card-body">
@@ -145,7 +146,7 @@
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card h-100">
                 <div class="card-body">
-                  <div class="row no-gutters align-items-center"> 
+                  <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-uppercase mb-1">SOLD FLATS</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
@@ -154,14 +155,14 @@
                         <span>Since yesterday</span>
                       </div>
                     </div>
-                   <div style="background-color: #49BF8A; border-radius: 10px;" class="col-auto p-1 mr-2">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
-                      <path d="M0 0h24v24H0z" fill="none" />
-                      <g fill="none" stroke="#165036" stroke-width="1.5">
-                        <path stroke-linejoin="round" d="M15.68 14.587c3.49 0 6.32-2.818 6.32-6.294S19.17 2 15.68 2S9.363 4.818 9.363 8.293c0 1.61.734 2.781.734 2.781l-7.642 7.61c-.343.342-.823 1.23 0 2.05l.882.878c.343.293 1.205.703 1.91 0l1.03-1.024c1.028 1.024 2.204.439 2.645-.147c.734-1.024-.147-2.049-.147-2.049l.294-.293c1.41 1.406 2.645.586 3.086 0c.735-1.024 0-2.049 0-2.049c-.294-.585-.882-.585-.147-1.317l.882-.878c.705.585 2.155.732 2.792.732Z" />
-                        <path d="M17.885 8.294a2.2 2.2 0 0 1-2.204 2.195a2.2 2.2 0 0 1-2.205-2.195a2.2 2.2 0 0 1 2.205-2.196a2.2 2.2 0 0 1 2.204 2.196Z" opacity=".5" />
-                      </g>
-                    </svg>
+                    <div style="background-color: #49BF8A; border-radius: 10px;" class="col-auto p-1 mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <g fill="none" stroke="#165036" stroke-width="1.5">
+                          <path stroke-linejoin="round" d="M15.68 14.587c3.49 0 6.32-2.818 6.32-6.294S19.17 2 15.68 2S9.363 4.818 9.363 8.293c0 1.61.734 2.781.734 2.781l-7.642 7.61c-.343.342-.823 1.23 0 2.05l.882.878c.343.293 1.205.703 1.91 0l1.03-1.024c1.028 1.024 2.204.439 2.645-.147c.734-1.024-.147-2.049-.147-2.049l.294-.293c1.41 1.406 2.645.586 3.086 0c.735-1.024 0-2.049 0-2.049c-.294-.585-.882-.585-.147-1.317l.882-.878c.705.585 2.155.732 2.792.732Z" />
+                          <path d="M17.885 8.294a2.2 2.2 0 0 1-2.204 2.195a2.2 2.2 0 0 1-2.205-2.195a2.2 2.2 0 0 1 2.205-2.196a2.2 2.2 0 0 1 2.204 2.196Z" opacity=".5" />
+                        </g>
+                      </svg>
                     </div>
                   </div>
                 </div>
@@ -390,7 +391,9 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
+            <span>copyright &copy; <script>
+                document.write(new Date().getFullYear());
+              </script> - developed by
               <b><a href="https://indrijunanda.gitlab.io/" target="_blank">indrijunanda</a></b>
             </span>
           </div>
@@ -398,7 +401,9 @@
 
         <div class="container my-auto py-2">
           <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - distributed by
+            <span>copyright &copy; <script>
+                document.write(new Date().getFullYear());
+              </script> - distributed by
               <b><a href="https://themewagon.com/" target="_blank">themewagon</a></b>
             </span>
           </div>
@@ -418,7 +423,7 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="../assets/js/ruang-admin.min.js"></script>
   <script src="vendor/chart.js/Chart.min.js"></script>
-  <script src="../assets/js/demo/chart-area-demo.js"></script>  
+  <script src="../assets/js/demo/chart-area-demo.js"></script>
 </body>
 
 </html>

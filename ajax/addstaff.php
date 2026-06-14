@@ -1,16 +1,19 @@
 <?php
+    header('Content-Type: application/json');
     require("../config/db.php");
     
-    $name = $_POST['name'];
+    $nameusername = $_POST['username'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $password = $_POST['password'];
+    $status = $_POST['status'];
+    $role = $_POST['role'];
 
     $hashpassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = "INSERT INTO login (name, email, phone, password) VALUES (?, ?, ?, ?)";
+    $query = "INSERT INTO login (username, email, phone, password,status,role) VALUES (?, ?, ?, ?,?,?)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssss", $name, $email, $phone, $hashpassword);
+    $stmt->bind_param("ssssss", $nameusername, $email, $phone, $hashpassword, $status, $role);
     if($stmt->execute()){
         echo json_encode(["status" => true, "message" => "Seller added successfully"]);
     } else {

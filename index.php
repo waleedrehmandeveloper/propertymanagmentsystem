@@ -1,10 +1,9 @@
 <?php
-  session_start();
-  require_once("config/db.php");
-  require_once("auth/auth.php");
+session_start();
+require_once("auth/auth.php");
 
-  alreadyLoggedIn();
-?>  
+// alreadyLoggedIn();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,11 +18,17 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="assets/css/ruang-admin.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'DM Sans', sans-serif;
@@ -52,7 +57,7 @@
       background: #ffffff;
       border-radius: 16px;
       border: 0.5px solid #D4D8CE;
-      box-shadow: 0 2px 24px rgba(28,43,35,0.07);
+      box-shadow: 0 2px 24px rgba(28, 43, 35, 0.07);
       width: 100%;
       max-width: 480px;
       padding: 2.5rem 2.25rem;
@@ -60,8 +65,15 @@
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .brand {
@@ -82,14 +94,21 @@
       flex-shrink: 0;
     }
 
-    .logo i { font-size: 20px; color: #8FBC9A; }
+    .logo i {
+      font-size: 20px;
+      color: #8FBC9A;
+    }
 
-    .brand-text { line-height: 1.2; }
+    .brand-text {
+      line-height: 1.2;
+    }
+
     .brand-name {
       font-family: 'DM Serif Display', serif;
       font-size: 18px;
       color: #1C2B23;
     }
+
     .brand-tagline {
       font-size: 11px;
       letter-spacing: 0.1em;
@@ -98,10 +117,22 @@
       font-weight: 500;
     }
 
-    .heading { font-family: 'DM Serif Display', serif; font-size: 24px; color: #1C2B23; margin-bottom: 4px; }
-    .subheading { font-size: 13.5px; color: #7A8A80; margin-bottom: 2rem; }
+    .heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: #1C2B23;
+      margin-bottom: 4px;
+    }
 
-    .field { margin-bottom: 1.1rem; }
+    .subheading {
+      font-size: 13.5px;
+      color: #7A8A80;
+      margin-bottom: 2rem;
+    }
+
+    .field {
+      margin-bottom: 1.1rem;
+    }
 
     .field label {
       display: block;
@@ -140,12 +171,14 @@
       transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
     }
 
-    .input-wrap input::placeholder { color: #B4C0B8; }
+    .input-wrap input::placeholder {
+      color: #B4C0B8;
+    }
 
     .input-wrap input:focus {
       border-color: #4A7C59;
       background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(74,124,89,0.13);
+      box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.13);
     }
 
     .toggle-btn {
@@ -160,7 +193,10 @@
       line-height: 1;
       transition: color 0.15s;
     }
-    .toggle-btn:hover { color: #4A7C59; }
+
+    .toggle-btn:hover {
+      color: #4A7C59;
+    }
 
     .options-row {
       display: flex;
@@ -193,7 +229,11 @@
       text-decoration: none;
       transition: color 0.15s;
     }
-    .forgot:hover { color: #2E5A3A; text-decoration: underline; }
+
+    .forgot:hover {
+      color: #2E5A3A;
+      text-decoration: underline;
+    }
 
     .btn-submit {
       width: 100%;
@@ -213,8 +253,14 @@
       justify-content: center;
       gap: 8px;
     }
-    .btn-submit:hover { background: #2E4A38; }
-    .btn-submit:active { transform: scale(0.985); }
+
+    .btn-submit:hover {
+      background: #2E4A38;
+    }
+
+    .btn-submit:active {
+      transform: scale(0.985);
+    }
 
     .divider {
       display: flex;
@@ -224,7 +270,9 @@
       font-size: 12px;
       color: #B0BEB6;
     }
-    .divider::before, .divider::after {
+
+    .divider::before,
+    .divider::after {
       content: '';
       flex: 1;
       height: 0.5px;
@@ -248,8 +296,15 @@
       gap: 8px;
       transition: background 0.15s, border-color 0.15s;
     }
-    .btn-sso:hover { background: #EEF2EC; border-color: #B8C8B4; }
-    .btn-sso i { font-size: 17px; }
+
+    .btn-sso:hover {
+      background: #EEF2EC;
+      border-color: #B8C8B4;
+    }
+
+    .btn-sso i {
+      font-size: 17px;
+    }
 
     .footer-row {
       margin-top: 1.5rem;
@@ -257,12 +312,16 @@
       font-size: 13px;
       color: #8A9E90;
     }
+
     .footer-row a {
       color: #4A7C59;
       font-weight: 500;
       text-decoration: none;
     }
-    .footer-row a:hover { text-decoration: underline; }
+
+    .footer-row a:hover {
+      text-decoration: underline;
+    }
 
     .security-note {
       display: flex;
@@ -273,7 +332,10 @@
       font-size: 11.5px;
       color: #B0BEB6;
     }
-    .security-note i { font-size: 13px; }
+
+    .security-note i {
+      font-size: 13px;
+    }
   </style>
 </head>
 
@@ -293,36 +355,36 @@
 
     <h1 class="heading">Welcome back</h1>
     <p class="subheading">Sign in to your management portal</p>
-  
+
     <form id="loginform" method="POST">
-    <div class="field">
+      <div class="field">
         <label for="email">Email address</label>
         <div class="input-wrap">
-            <i class="ti ti-mail icon"></i>
-            <input name="email" type="email" id="email" placeholder="you@company.com" autocomplete="email" />
+          <i class="ti ti-mail icon"></i>
+          <input name="email" type="email" id="email" placeholder="you@company.com" autocomplete="email" />
         </div>
-    </div>
+      </div>
 
-    <div class="field">
+      <div class="field">
         <label for="password">Password</label>
         <div class="input-wrap">
-            <i class="ti ti-lock icon"></i>
-            <input name="password" type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
-            <button type="button" class="toggle-btn"><i class="ti ti-eye"></i></button>
+          <i class="ti ti-lock icon"></i>
+          <input name="password" type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
+          <button type="button" class="toggle-btn"><i class="ti ti-eye"></i></button>
         </div>
-    </div>
+      </div>
 
-    <div class="options-row">
+      <div class="options-row">
         <label class="remember">
-            <input name="remember" type="checkbox" /> Remember me
+          <input name="remember" type="checkbox" /> Remember me
         </label>
         <a href="#" class="forgot">Forgot password?</a>
-    </div>
+      </div>
 
-    <button type="submit" class="btn-submit mb">
+      <button type="submit" class="btn-submit mb">
         <i class="ti ti-login"></i> Sign in to portal
-    </button>
-</form>
+      </button>
+    </form>
 
   </div>
 
@@ -332,30 +394,31 @@
   <script src="assets/js/ruang-admin.min.js"></script>
 
   <script src="pages/vendor/jquery/jquery.min.js"></script>
- <script>
-    $("#loginform").submit(function(e){
-        e.preventDefault();
+  <script>
+    $("#loginform").submit(function(e) {
+      e.preventDefault();
 
-        $.ajax({
-            url: "ajax/loginform.php",
-            type: "POST",
-            dataType: "json",
-            data: {
-                email:    $("#email").val(),
-                password: $("#password").val(),
-            },
-            success: function(response){
-                if(response.status){
-                    window.location.href = "pages/dashboard.php";
-                } else {
-                    alert(response.message);
-                }
-            },
-            error: function(err){
-                console.log(err.responseText);
-            }
-        });
+      $.ajax({
+        url: "ajax/loginform.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          email: $("#email").val(),
+          password: $("#password").val(),
+        },
+        success: function(response) {
+          if (response.status) {
+            window.location.href = "pages/dashboard.php";
+          } else {
+            alert(response.message);
+          }
+        },
+        error: function(err) {
+          console.log(err.responseText);
+        }
+      });
     });
-</script>
+  </script>
 </body>
+
 </html>
