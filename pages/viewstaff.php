@@ -1,5 +1,9 @@
 <?php
-require("../config/db.php");
+session_start();
+require_once("../config/db.php");
+require_once("../auth/auth.php");
+chekLogin();
+sellerStatusChecked();
 
 $query = "SELECT id, username, email, phone, status, created_at, role 
           FROM login  WHERE role='sales'
@@ -21,6 +25,22 @@ $result = $conn->query($query);
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/css/ruang-admin.css" rel="stylesheet">
+    <style>
+        .btn-save {
+            background: linear-gradient(to right, #213b2e, #2d694e);
+            border: none;
+            color: white;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            padding: 10px 30px;
+        }
+
+        .view-btn:hover {
+            color: white;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -45,7 +65,7 @@ $result = $conn->query($query);
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h5 class="mb-0 font-weight-bold">Users</h5>
 
-                                <a href="addseller.php" class="btn btn-save btn-success">
+                                <a href="addstaff.php" class="btn btn-save">
                                     <i class="fas fa-plus mr-1"></i>
                                     Add User
                                 </a>

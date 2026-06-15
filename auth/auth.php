@@ -11,16 +11,12 @@ function chekLogin()
         header("Location: ../index.php");
         exit();
     }
-    if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "sales") {
-        header("Location: ../index.php");
-        exit();
-    }
-    if (isset($_SESSION["user_id"]) && $_SESSION["role"] !== "admin") {
+
+    if ($_SESSION["role"] !== "admin" && $_SESSION["role"] !== "sales") {
         header("Location: ../index.php");
         exit();
     }
 }
-
 function alreadyLoggedIn()
 {
     if (isset($_SESSION["user_id"])) {
@@ -33,14 +29,14 @@ function sellerStatusChecked()
 {
     global $conn;
 
-    if (!isset($_SESSION["user_id"])) {
-        header("Location: ../index.php");
-        exit();
+    if (!isset($_SESSION["user_id"]) || $_SESSION["role"] !== "sales") {
+        return;
     }
+
 
     $id = $_SESSION["user_id"];
 
-    $query = "SELECT status FROM login WHERE id = ? AND role = 'sales'";
+    $query = "SELECT status FROM login WHERE id = ? AND role = 'sales' AND role = 'sales' LIMIT 1";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $id);
     $stmt->execute();

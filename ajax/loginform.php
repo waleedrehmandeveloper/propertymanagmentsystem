@@ -22,7 +22,7 @@ if ($result->num_rows == 0) {
     exit;
 }
 
-$user = $result->fetch_assoc(); // ONLY ONCE
+$user = $result->fetch_assoc();
 
 // 1. password check
 if (!password_verify($password, $user["password"])) {

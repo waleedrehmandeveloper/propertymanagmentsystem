@@ -1,10 +1,15 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+?>
 <!-- Sidebar -->
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
 
   <!-- Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../pages/dashboard.php">
     <div class="sidebar-brand-icon">
-      <img src="../img/logo/logo2.png">
+      <img src="../assets/img/logo/mainlogo.png">
     </div>
     <div class="sidebar-brand-text mx-3">EstateOS</div>
   </a>
@@ -26,18 +31,27 @@
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProjects"
       aria-expanded="true" aria-controls="collapseProjects">
+
       <i class="fas fa-fw fa-building"></i>
       <span>Projects</span>
     </a>
-    <div id="collapseProjects" class="collapse" aria-labelledby="headingProjects" data-parent="#accordionSidebar">
+
+    <div id="collapseProjects" class="collapse" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Projects</h6>
-        <a class="collapse-item" href="../pages/addprojects.php">
-          <i class="fas fa-plus-circle fa-sm mr-1"></i> Add Project
-        </a>
+
+        <!-- VIEW (ALL ROLES) -->
         <a class="collapse-item" href="../pages/viewprojects.php">
           <i class="fas fa-list fa-sm mr-1"></i> View Projects
         </a>
+
+        <!-- ADD ONLY ADMIN -->
+        <?php if ($_SESSION["role"] == "admin") { ?>
+          <a class="collapse-item" href="../pages/addprojects.php">
+            <i class="fas fa-plus-circle fa-sm mr-1"></i> Add Project
+          </a>
+        <?php } ?>
+
       </div>
     </div>
   </li>
@@ -83,52 +97,56 @@
   </li>
 
   <hr class="sidebar-divider">
-  <div class="sidebar-heading">Finance</div>
+  <?php if ($_SESSION["role"] == "admin") { ?>
 
-  <!-- Investment Plans -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvestment"
-      aria-expanded="true" aria-controls="collapseInvestment">
-      <i class="fas fa-fw fa-hand-holding-usd"></i>
-      <span>Investment Plans</span>
-    </a>
-    <div id="collapseInvestment" class="collapse" aria-labelledby="headingInvestment" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Investment Plans</h6>
-        <a class="collapse-item" href="../pages/addinstallment.php">
-          <i class="fas fa-plus-circle fa-sm mr-1"></i> Add Plan
-        </a>
-        <a class="collapse-item" href="../pages/viewinstallmentplans.php">
-          <i class="fas fa-list fa-sm mr-1"></i> View Plans
-        </a>
+    <div class="sidebar-heading">Finance</div>
+
+    <!-- Investment Plans -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvestment"
+        aria-expanded="true" aria-controls="collapseInvestment">
+        <i class="fas fa-fw fa-hand-holding-usd"></i>
+        <span>Investment Plans</span>
+      </a>
+      <div id="collapseInvestment" class="collapse" aria-labelledby="headingInvestment" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Investment Plans</h6>
+          <a class="collapse-item" href="../pages/addinstallment.php">
+            <i class="fas fa-plus-circle fa-sm mr-1"></i> Add Plan
+          </a>
+          <a class="collapse-item" href="../pages/viewinstallmentplans.php">
+            <i class="fas fa-list fa-sm mr-1"></i> View Plans
+          </a>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
 
-  <!-- Installments -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInstallments"
-      aria-expanded="true" aria-controls="collapseInstallments">
-      <i class="fas fa-fw fa-money-check-alt"></i>
-      <span>Installments</span>
-    </a>
-    <div id="collapseInstallments" class="collapse" aria-labelledby="headingInstallments" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Installments</h6>
-        <a class="collapse-item" href="../pages/paymentschedule.php">
-          <i class="fas fa-calendar-alt fa-sm mr-1"></i> Payment Schedule
-        </a>
-        <a class="collapse-item" href="../pages/installments/record_payment.php">
-          <i class="fas fa-check-circle fa-sm mr-1"></i> Record Payment
-        </a>
-        <a class="collapse-item" href="../pages/installments/overdue.php">
-          <i class="fas fa-exclamation-circle fa-sm mr-1"></i> Overdue Payments
-        </a>
+    <!-- Installments -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInstallments"
+        aria-expanded="true" aria-controls="collapseInstallments">
+        <i class="fas fa-fw fa-money-check-alt"></i>
+        <span>Installments</span>
+      </a>
+      <div id="collapseInstallments" class="collapse" aria-labelledby="headingInstallments" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Installments</h6>
+          <a class="collapse-item" href="../pages/paymentschedule.php">
+            <i class="fas fa-calendar-alt fa-sm mr-1"></i> Payment Schedule
+          </a>
+          <a class="collapse-item" href="../pages/installments/record_payment.php">
+            <i class="fas fa-check-circle fa-sm mr-1"></i> Record Payment
+          </a>
+          <a class="collapse-item" href="../pages/installments/overdue.php">
+            <i class="fas fa-exclamation-circle fa-sm mr-1"></i> Overdue Payments
+          </a>
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
 
-  <hr class="sidebar-divider">
+    <hr class="sidebar-divider">
+
+  <?php } ?>
 
   <!-- Certificates -->
   <li class="nav-item">
@@ -153,28 +171,34 @@
     </div>
   </li>
 
-  <hr class="sidebar-divider">
-  <div class="sidebar-heading">Staff Manage</div>
-   <!-- Installments -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsestaff"
-      aria-expanded="true" aria-controls="collapseInstallments">
-      <i class="fas fa-fw fa-user"></i>
-      <span>Add Staff</span>
-    </a>
-    <div id="collapsestaff" class="collapse" aria-labelledby="headingInstallments" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Add Staff</h6>
-        <a class="collapse-item" href="../pages/addstaff.php">
-          <i class="fas fa-user-plus fa-sm mr-1"></i> Add New Staff
-        </a>
-        <a class="collapse-item" href="../pages/viewstaff.php">
-          <i class="fas fa-user-check fa-sm mr-1"></i> View Staff
-        </a>
-      </div>
-    </div>
-  </li>
+  <?php if ($_SESSION["role"] == "admin") { ?>
 
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">Staff Manage</div>
+    <!-- Installments -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsestaff"
+        aria-expanded="true" aria-controls="collapseInstallments">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Add Staff</span>
+      </a>
+      <div id="collapsestaff" class="collapse" aria-labelledby="headingInstallments" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Add Staff</h6>
+          <a class="collapse-item" href="../pages/addstaff.php">
+            <i class="fas fa-user-plus fa-sm mr-1"></i> Add New Staff
+          </a>
+          <a class="collapse-item" href="../pages/viewstaff.php">
+            <i class="fas fa-user-check fa-sm mr-1"></i> View Staff
+          </a>
+        </div>
+      </div>
+    </li>
+
+
+
+  <?php } ?>
+  <!-- Settings -->
   <hr class="sidebar-divider">
   <div class="sidebar-heading">Settings</div>
 

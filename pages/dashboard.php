@@ -3,7 +3,7 @@ session_start();
 require_once("../config/db.php");
 require_once("../auth/auth.php");
 chekLogin();
-// sellerStatusChecked();
+sellerStatusChecked();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +41,7 @@ chekLogin();
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item text-success"><a class="text-success" href="./">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
             </ol>
           </div>
@@ -173,7 +173,7 @@ chekLogin();
             <div class="col-xl-8 col-lg-7">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Monthly Recap Report</h6>
+                  <h6 class="m-0 font-weight-bold text-success">Monthly Recap Report</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
@@ -200,7 +200,7 @@ chekLogin();
             <div class="col-xl-4 col-lg-5">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Products Sold</h6>
+                  <h6 class="m-0 font-weight-bold text-success">Products Sold</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle btn btn-primary btn-sm" href="#" role="button" id="dropdownMenuLink"
                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -264,7 +264,7 @@ chekLogin();
                   </div>
                 </div>
                 <div class="card-footer text-center">
-                  <a class="m-0 small text-primary card-link" href="#">View More <i
+                  <a class="m-0 small text-success card-link" href="#">View More <i
                       class="fas fa-chevron-right"></i></a>
                 </div>
               </div>
@@ -273,7 +273,7 @@ chekLogin();
             <div class="col-xl-8 col-lg-7 mb-4">
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Invoice</h6>
+                  <h6 class="m-0 font-weight-bold text-success">Invoice</h6>
                   <a class="m-0 float-right btn btn-danger btn-sm" href="#">View More <i
                       class="fas fa-chevron-right"></i></a>
                 </div>
@@ -333,7 +333,7 @@ chekLogin();
             <!-- Message From Customer-->
             <div class="col-xl-4 col-lg-5 ">
               <div class="card">
-                <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
+                <div class="card-header py-4 bg-success d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-light">Message From Customer</h6>
                 </div>
                 <div>
@@ -376,40 +376,10 @@ chekLogin();
           </div>
           <!--Row-->
 
-          <div class="row">
-            <div class="col-lg-12 text-center">
-              <p>Do you like this template ? you can download from <a href="https://github.com/indrijunanda/RuangAdmin"
-                  class="btn btn-primary btn-sm" target="_blank"><i class="fab fa-fw fa-github"></i>&nbsp;GitHub</a></p>
-            </div>
-          </div>
-
 
         </div>
         <!---Container Fluid-->
       </div>
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script>
-                document.write(new Date().getFullYear());
-              </script> - developed by
-              <b><a href="https://indrijunanda.gitlab.io/" target="_blank">indrijunanda</a></b>
-            </span>
-          </div>
-        </div>
-
-        <div class="container my-auto py-2">
-          <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script>
-                document.write(new Date().getFullYear());
-              </script> - distributed by
-              <b><a href="https://themewagon.com/" target="_blank">themewagon</a></b>
-            </span>
-          </div>
-        </div>
-      </footer>
-      <!-- Footer -->
     </div>
   </div>
 

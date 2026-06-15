@@ -1,3 +1,10 @@
+<?php
+session_start();
+require_once("../config/db.php");
+require_once("../auth/auth.php");
+chekLogin();
+sellerStatusChecked();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +22,7 @@
   <style>
     .custom-input {
       border-radius: 10px;
-      padding: 10px 12px;
+      padding: 20px 14px;
       border: 1px solid #e5e5e5;
       box-shadow: none;
       font-size: 14px;
@@ -27,15 +34,17 @@
     }
 
     .btn-save {
-      background: linear-gradient(to right, #213b2e, #2f5a45);
+      background: linear-gradient(to right, #213f31, #2c674d);
       color: #fff;
       border: none;
-      border-radius: 10px;
+      border-radius: 30px;
       font-weight: 500;
+      padding: 10px 20px;
     }
 
     .btn-save:hover {
-      opacity: 0.9;
+      opacity: 0.8;
+      color: #fff;
     }
   </style>
 </head>

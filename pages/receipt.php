@@ -1,37 +1,60 @@
 <?php
+require_once("../auth/auth.php");
+chekLogin();
+sellerStatusChecked();
 require_once("../fpdf/fpdf.php");
 require_once("../config/db.php");
 
-function numberToWords($number){
-    $ones = ['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine',
-             'Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen',
-             'Seventeen','Eighteen','Nineteen'];
-    $tens = ['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+function numberToWords($number)
+{
+    $ones = [
+        '',
+        'One',
+        'Two',
+        'Three',
+        'Four',
+        'Five',
+        'Six',
+        'Seven',
+        'Eight',
+        'Nine',
+        'Ten',
+        'Eleven',
+        'Twelve',
+        'Thirteen',
+        'Fourteen',
+        'Fifteen',
+        'Sixteen',
+        'Seventeen',
+        'Eighteen',
+        'Nineteen'
+    ];
+    $tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
 
-    if($number == 0) return 'Zero';
+    if ($number == 0) return 'Zero';
     $result = '';
 
-    if($number >= 10000000){
+    if ($number >= 10000000) {
         $result .= numberToWords((int)floor($number / 10000000)) . ' Crore ';
         $number = $number % 10000000;
     }
-    if($number >= 100000){
+    if ($number >= 100000) {
         $result .= numberToWords((int)floor($number / 100000)) . ' Lakh ';
         $number = $number % 100000;
     }
-    if($number >= 1000){
+    if ($number >= 1000) {
         $result .= numberToWords((int)floor($number / 1000)) . ' Thousand ';
         $number = $number % 1000;
     }
-    if($number >= 100){
+    if ($number >= 100) {
         $result .= $ones[(int)floor($number / 100)] . ' Hundred ';
         $number = $number % 100;
     }
-    if($number >= 20){
+    if ($number >= 20) {
         $result .= $tens[(int)floor($number / 10)] . ' ';
         $number = $number % 10;
     }
-    if($number > 0){
+    if ($number > 0) {
         $result .= $ones[$number] . ' ';
     }
 
@@ -40,7 +63,7 @@ function numberToWords($number){
 
 $sale_id = $_GET['sale_id'] ?? 0;
 
-if(empty($sale_id)){
+if (empty($sale_id)) {
     die("Sale ID missing!");
 }
 
@@ -68,7 +91,7 @@ $stmt->bind_param("i", $sale_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if($result->num_rows == 0){
+if ($result->num_rows == 0) {
     die("Sale nahi mili!");
 }
 
@@ -79,7 +102,7 @@ $floor = !empty($data['floor']) ? $data['floor'] : $data['type'];
 $type  = !empty($data['floor']) ? $data['type'] : '';
 
 // Amount logic - installment ya full
-if($data['payment_plan'] == 0){
+if ($data['payment_plan'] == 0) {
     $printAmount = $data['total_amount'];        // Full payment
 } else {
     $printAmount = $data['monthly_installment']; // Monthly kist
@@ -93,7 +116,8 @@ $pdf->AddPage('L', 'A4');
 
 $pdf->Image(
     'brosherstemplate/reciept.jpg',
-    0, 0,
+    0,
+    0,
     $pdf->GetPageWidth(),
     $pdf->GetPageHeight()
 );
@@ -144,4 +168,3 @@ $pdf->SetXY(50, 154);
 $pdf->Cell(80, 8, "Rs. " . number_format($printAmount));
 
 $pdf->Output();
-?>

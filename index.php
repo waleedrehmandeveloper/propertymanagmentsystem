@@ -2,7 +2,7 @@
 session_start();
 require_once("auth/auth.php");
 
-// alreadyLoggedIn();
+alreadyLoggedIn();
 ?>
 <!DOCTYPE html>
 <html lang="en">

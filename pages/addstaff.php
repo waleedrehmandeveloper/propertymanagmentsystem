@@ -1,3 +1,10 @@
+<?php
+session_start();
+require_once("../config/db.php");
+require_once("../auth/auth.php");
+chekLogin();
+sellerStatusChecked();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +22,7 @@
     <style>
         .custom-input {
             border-radius: 10px;
-            padding: 10px 12px;
+            padding: 20px 14px;
             border: 1px solid #e5e5e5;
             box-shadow: none;
             font-size: 14px;
@@ -27,7 +34,7 @@
         }
 
         .btn-save {
-            background: linear-gradient(to right, #213b2e, #2f5a45);
+            background: linear-gradient(to right, #213f31, #2c674d);
             color: #fff;
             border: none;
             border-radius: 10px;
@@ -35,7 +42,8 @@
         }
 
         .btn-save:hover {
-            opacity: 0.9;
+            opacity: 0.8;
+            color: #fff;
         }
     </style>
 </head>
@@ -56,12 +64,11 @@
                 <!-- Topbar -->
                 <div class="container-fluid" id="container-wrapper">
 
-
                     <div class="card shadow mb-4">
                         <div class="card-body">
 
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="mb-0 font-weight-bold">ADD SELLERS</h4>
+                                <h4 class="mb-0 font-weight-bold">ADD SELLER</h4>
                             </div>
 
                             <form id="userForm">
